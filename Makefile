@@ -4,7 +4,7 @@ MacOS := $(findstring Darwin, $(shell uname -s))
 Windows := $(findstring NT, $(shell uname -s))
 
 # Specify what typing 'make' on its own will compile
-default: lexer
+default: recogniser
 
 # For Native Windows only, add the .exe extension
 ifdef Windows
@@ -16,5 +16,5 @@ ifdef Windows
 else
 
 %: %.c
-	clang -std=c11 -g $@.c -o $@ 
+	clang -std=c11 -g $@.c lexer.c -o $@ 
 endif

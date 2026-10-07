@@ -2,22 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include "lexer.h"
 
 #define MAX_LEN 255
 
-typedef enum {
-    IDENT,
-    VAR,
-    LPAREN,
-    RPAREN,
-    DEFINE,
-    COMMA,
-    EQUALS,
-    END
-} Token;
-
-int idx;
-char* input;
+static int idx;
+static char* input;
 int tidx;
 Token output[MAX_LEN];
 
@@ -30,15 +20,15 @@ void print_tk_out();
 
 // Main functions
 
-char peek();
+static char peek();
 void drop();
 void emit(Token tk);
 
 int lex_init();
 int lex_var_or_id_or_kw(char* lexemme);
-int lex(char* s);
+Token* lex(char* s);
 
-
+/*
 int main(int argc, char* argv[]) {
     if(argc != 2) {printf("Supply one argument with string to be recognised.\n") ;return -1;}
 
@@ -47,8 +37,9 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+*/
 
-char peek() {
+static char peek() {
     return input[idx];
 }
 
@@ -61,11 +52,12 @@ void emit(Token tk) {
     tidx++;
 }
 
-int lex(char* s) {
+Token* lex(char* s) {
     idx = 0;
     tidx = 0;
     input = s;
     lex_init();
+    return output;
 }
 
 int lex_init() {
