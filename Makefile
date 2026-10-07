@@ -16,5 +16,5 @@ ifdef Windows
 else
 
 %: %.c
-	clang -std=c11 -g $@.c lexer.c -o $@ 
+	clang -std=c11 -g $@.c lexer.c -o $@.o
 endif
